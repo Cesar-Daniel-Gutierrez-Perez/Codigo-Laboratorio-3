@@ -8,6 +8,7 @@
 
 ; Replace with your application code
 start:
+	ldi r30, 0x80
 	cbi portb,0
     ldi	r16, 0x00
 	ldi	r17, 0xff
@@ -30,9 +31,11 @@ prod:
 	call decremento
 	rjmp start
 incremento:
-	ldi r19, 1
-	ldi r18, 0x1f ;0001 1111
+	ldi r19, 0
+	ldi r18, 0x3f ;0011 1111
+	out ddrd, r17
 	out portd, r18
+	
 	mas:
 		ldi r16, 0x3f ; 0011 1111
 		out ddrb, r16
@@ -41,54 +44,47 @@ incremento:
 		call DELAYA
 		ldi r16, 0x06 ; 0000 0110
 		out ddrb, r16
-		out portb, r16
+		out portb, r16		
 		call DELAYA
 		ldi r16, 0x5b ; 0101 1011
+		add r18, r30
+		out portd, r18		
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x4f ; 0100 1111
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x66 ; 0110 0110
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x6d ; 0110 1101
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x7d ; 0111 1101
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x07 ; 0000 0111
+		sub r18, r30
+		out portd, r18
 		out ddrb, r16
 		out portb, r16
 		call DELAYA
 		ldi r16, 0x7f ; 0111 1111
+		add r18, r30
+		out portd, r18
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
 		ldi r16, 0x6f ; 0110 1111
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYA
+		inc r19
 
 		cpi r19, 1
 		breq unoa
@@ -115,111 +111,95 @@ incremento:
 		unoa:	
 			ldi r18, 0x06 ; 0000 0110
 			out portd, r18
-			inc r19
 			rjmp mas
 		dosa:
 			ldi r18, 0x5b ; 0101 1011
 			out portd, r18
-			inc r19
 			rjmp mas
 		tresa:
 			ldi r18, 0x4f ; 0100 1111
 			out portd, r18
-			inc r19
 			rjmp mas
 		cuatroa:
 			ldi r18, 0x66 ; 0110 0110
 			out portd, r18
-			inc r19
 			rjmp mas
 		cincoa:
 			ldi r18, 0x6d ; 0110 1101
 			out portd, r18
-			inc r19
 			rjmp mas
 		seisa:
 			ldi r18, 0x7d ; 0111 1101
 			out portd, r18
-			inc r19
 			rjmp mas
 		sietea:
 			ldi r18, 0x07 ; 0000 0111
 			out portd, r18
-			inc r19
 			rjmp mas
 		ochoa:
 			ldi r18, 0x7f ; 0111 1111
 			out portd, r18
-			inc r19
 			rjmp mas
 		nuevea:
 			ldi r18, 0x6f ; 0110 1111
 			out portd, r18
-			inc r19
-			rjmp incremento
+			rjmp mas
 decremento:
-	ldi r19, 8
+	ldi r19, 9
 	ldi r18, 0x6f ; 0110 1111
+	out ddrd, r17
 	out portd, r18
-	menos:
+	menos:		
 		ldi r16, 0x6f ; 0110 1111
+		add r18, r30
+		out portd, r18
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		ldi r17, 0xff
 		call DELAYD
 		ldi r16, 0x7f ; 0111 1111
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x07 ; 0000 0111
+		sub r18, r30
+		out portd, r18
 		out ddrb, r16
 		out portb, r16
 		call DELAYD
 		ldi r16, 0x7d ; 0111 1101
+		add r18, r30
+		out portd, r18
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x6d ; 0110 1101
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x66 ; 0110 0110
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x4f ; 0100 1111
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x5b ; 0101 1011
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
 		ldi r16, 0x06 ; 0000 0110
+		sub r18, r30
+		out portd, r18
 		out ddrb, r16
 		out portb, r16
 		call DELAYD
 		ldi r16, 0x3f ; 0011 1111
 		out ddrb, r16
-		out ddrd, r16
 		out portb, r16
-		out portd, r16
 		call DELAYD
-
+		dec r19
 		
 		cpi r19, 0
 		breq cerod
@@ -238,55 +218,45 @@ decremento:
 		cpi r19, 7
 		breq sieted
 		cpi r19, 8
-		breq vd	
-		rjmp menos
-		vd:
-		call decremento
+		breq ochod	
+		rjmp decremento
+
 
 		cerod:
-			ldi r18, 0x1f ; 0110 1111
+			ldi r18, 0x3f ; 0011 1111
 			out portd, r18
-			dec r19
 			rjmp menos
 		unod:	
 			ldi r18, 0x06 ; 0000 0110
 			out portd, r18
-			dec r19
 			rjmp menos
 		dosd:
 			ldi r18, 0x5b ; 0101 1011
 			out portd, r18
-			dec r19
 			rjmp menos
 		tresd:
 			ldi r18, 0x4f ; 0100 1111
 			out portd, r18
-			dec r19
 			rjmp menos
 		cuatrod:
 			ldi r18, 0x66 ; 0110 0110
 			out portd, r18
-			dec r19
 			rjmp menos
 		cincod:
 			ldi r18, 0x6d ; 0110 1101
 			out portd, r18
-			dec r19
 			rjmp menos
 		seisd:
 			ldi r18, 0x7d ; 0111 1101
 			out portd, r18
-			dec r19
 			rjmp menos
 		sieted:
 			ldi r18, 0x07 ; 0000 0111
 			out portd, r18
-			dec r19
 			rjmp menos
 		ochod:
 			ldi r18, 0x7f ; 0111 1111
 			out portd, r18
-			inc r19
 			rjmp menos
 	
 DELAYA:
@@ -294,8 +264,13 @@ DELAYA:
 	DELAYA1:
 		ldi r21, 0xff
 		DELAYA2:
-			ldi r22, 0x52
-			DELAYA3:				
+			ldi r22, 0x15
+			DELAYA3:
+				in r16, pinc
+				cpi r16, 2
+				breq prod2	
+				cpi r16, 4
+				breq proa2			
 				dec r22
 				brne DELAYA3
 				dec r21
@@ -303,13 +278,21 @@ DELAYA:
 				dec r20
 				brne DELAYA1
 ret
+prod2:
+	call decremento
+	rjmp start
 DELAYD:
 	ldi r20, 0xff
 	DELAYD1:
 		ldi r21, 0xff
 		DELAYD2:
-			ldi r22, 0x52
-			DELAYD3:		
+			ldi r22, 0x15
+			DELAYD3:
+				in r16, pinc
+				cpi r16, 1	
+				breq proa2	
+				cpi r16, 4
+				breq prod2
 				dec r22
 				brne DELAYD3
 				dec r21
@@ -317,3 +300,6 @@ DELAYD:
 				dec r20
 				brne DELAYD1
 ret
+proa2:
+	call incremento
+	rjmp start
